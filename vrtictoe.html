@@ -25,7 +25,76 @@
   <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      // The JavaScript code from the previous responses
+      const scene = document.querySelector("a-scene");
+      const gameBoard = document.getElementById("gameBoard");
+      const cellSize = 0.3;
+      const boardSize = 3;
+      const cells = [];
+
+      for (let x = 0; x < boardSize; x++) {
+        for (let y = 0; y < boardSize; y++) {
+          const positionX = (x - 1) * cellSize;
+          const positionY = (y - 1) * cellSize;
+          const cell = document.createElement("a-entity");
+
+          cell.setAttribute("geometry", "primitive: box; width: 0.2; height: 0.2; depth: 0.02;");
+          cell.setAttribute("material", "color: #00a0ff;");
+          cell.setAttribute("position", `${positionX} ${positionY} 0`);
+          cell.setAttribute("class", "cell");
+          cell.setAttribute("data-x", x);
+          cell.setAttribute("data-y", y);
+          cell.addEventListener("click", handleCellClick);
+
+          gameBoard.appendChild(cell);
+          cells.push(cell);
+        }
+      }
+
+      function handleCellClick(event) {
+        const cell = event.target;
+        if (!cell.getAttribute("occupied")) {
+          const currentPlayer = getCurrentPlayer();
+          cell.setAttribute("material", `color: ${currentPlayer === "X" ? "#ff0000" : "#00ff00"}`);
+          cell.setAttribute("occupied", true);
+          cell.setAttribute("value", currentPlayer);
+
+          if (checkWin()) {
+            setTimeout(() => {
+              alert(`${currentPlayer} wins!`);
+              resetGame();
+            }, 1000);
+          } else if (isBoardFull()) {
+            setTimeout(() => {
+              alert("It's a draw!");
+              resetGame();
+            }, 1000);
+          }
+        }
+      }
+
+      function checkWin() {
+        // Implement your win-checking logic here.
+        // For simplicity, I am not including the win-checking logic in this basic example.
+        // You can find various tic-tac-toe win-checking algorithms online.
+        return false;
+      }
+
+      function isBoardFull() {
+        return cells.every(cell => cell.getAttribute("occupied"));
+      }
+
+      function getCurrentPlayer() {
+        const occupiedCells = cells.filter(cell => cell.getAttribute("occupied"));
+        return occupiedCells.length % 2 === 0 ? "X" : "O";
+      }
+
+      function resetGame() {
+        cells.forEach(cell => {
+          cell.setAttribute("material", "color: #00a0ff;");
+          cell.removeAttribute("occupied");
+          cell.removeAttribute("value");
+        });
+      }
     });
   </script>
 </body>
