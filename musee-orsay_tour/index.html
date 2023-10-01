@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    /* Add CSS styles for the loader page */
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-image: url('https://rainer78.github.io/regencreatives/img/Enter_bg.png');
+      background-size: cover;
+      background-position: center;
+      filter: grayscale(100%);
+      flex-direction: column;
+    }
+    
+    .loader {
+      border: 16px solid #f3f3f3;
+      border-top: 16px solid #333333;
+      border-radius: 50%;
+      width: 90px;
+      height: 90px;
+      animation: spin 2s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    img {
+      margin: 10px;
+    }
+
+    h3 {
+      margin-bottom: 10px;
+      font-size: 24px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 14px;
+      background-color: #FFF;
+      border: 2px #333333 solid;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+  <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+  <script>
+    // Function to open the main scene
+    function openMainScene() {
+      window.location.href = 'main_scene.html';
+    }
+  </script>
+</head>
+<body>
+  
+  <img style="width: fit-content;" src="https://www.musee-orsay.fr/themes/orsay/logo.svg">
+  <h3>Musée d'Orsay</h3>
+  
+  <!-- Enter button -->
+  <button onclick="openMainScene()">L'expérience 360</button>
+</body>
+</html>
