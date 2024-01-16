@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WWII Propaganda Poster Museum</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    
+    <style>
+        #enterButton {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 1;
+            border-radius: 20px;
+            /* More styling */
+        }
+    </style>
+</head>
+<body>
+    <a-scene>
+        <!-- Ambient Sound -->
+    <a-sound src="url_to_your_sound_file.mp3" autoplay="true" loop="true"></a-sound>
+        <!-- Skybox -->
+        <a-sky src="https://marketplace.canva.com/EAD2962NKnQ/2/0/1600w/canva-rainbow-gradient-pink-and-purple-virtual-background-_Tcjok-d9b4.jpg"></a-sky>
+
+        <!-- Tiled Wooden Floor -->
+        <a-plane position="0 0 0" rotation="-90 0 0" width="10" height="50" material="src: https://hardwoods4less.com/cdn/shop/files/mahogany9101210-2.jpg?v=1694534302; repeat: 4 4;"></a-plane>
+
+        <!-- Tiled Ceiling with Image Texture -->
+        <a-plane position="0 4 0" rotation="90 0 0" width="10" height="50" material="src: https://www.americantinceilings.com/cdn/shop/products/1-wbs_94c6c90b-cf34-4a51-8445-10d6d7070228_960x.jpg?v=1663282101; repeat: 4 4;"></a-plane>
+
+
+        <!-- Walls -->
+        <!-- Front Wall (Transparent)
+        <a-plane id="Wall1" position="0 2 25" rotation="0 0 0" width="10" height="4" material="opacity: 0.8; transparent: true;"></a-plane>  -->
+
+       <!-- Other Walls -->
+<a-plane id="Wall2" position="5 2 0" rotation="0 90 0" width="75" height="4" color="#ccc"></a-plane> <!-- Right Wall -->
+<a-plane id="Wall3" position="0 2 -5" rotation="0 180 0" width="75" height="4" color="#ccc"></a-plane> <!-- Back Wall -->
+<a-plane id="Wall4" position="-5 2 0" rotation="0 -90 0" width="75" height="4" color="#ccc"></a-plane> <!-- Left Wall -->
+
+        <!-- Title Card -->
+    
+    <a-text color="#333" value="Welcome to the WWI Propaganda Poster Museum. Use the arrow keys to move around" position="0 3 23" align="center" width="4.5"></a-text>
+
+    <!-- Enter Button -->
+    <a-box id="enterButton" position="0 1 23" width="3" height="0.5" depth="0" color="#333" class="clickable" >
+        <a-text value="Press the UP arrow to start" position="0 0 0.06" align="center"></a-text>
+    </a-box>
+
+
+
+        <!-- Posters -->
+        <a-image src="https://ids.si.edu/ids/deliveryService?id=NMAH-87-13107&max=600" position="-4.9 2 0" rotation="0 90 0" width="2" height="3"></a-image> 
+        
+        <!--  Wall Poster -->
+        <a-image id="poster1" class="clickable poster" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Gino_Boccasile_%281901-52%29_Su_loro_ricade_la_colpa%21_On_them_rests_the_blame%21_WWII_Italian_Fascist_Anti-British-American-Allied_propaganda_poster_Churchill_Roosevelt_pistols_ruins_pirate_flag._Rubenstein_Rare_Book_%26_Manuscript_Library_No_k.jpg/220px-thumbnail.jpg" position="4.9 2 0" rotation="0 -90 0" width="2" height="3"></a-image> <!-- Right Wall Poster -->
+        <a-image src="https://lh3.googleusercontent.com/proxy/5gN8jhzEfiDW4JT9ao6Pd-I2Mu5ldBdyq6Nhv4YDicd_DQSCjxl7w0G4ZUyGgaQiiICZjjxb4vpaLdIjKio59lA35H_QgcOopXWzs0spl76vvjba" position="4.9 2 8" rotation="0 -90 0" width="2" height="3"></a-image> <!-- Right Wall Poster -->
+        <a-image src="https://i.natgeofe.com/n/34e33ff5-6e2b-4bd4-8e41-b4243bf30d7f/05_propaganda.jpg?w=374&h=449" position="4.9 2 -8" rotation="0 -90 0" width="2" height="3"></a-image> <!-- Right Wall Poster -->
+        <a-image src="https://i.natgeofe.com/n/34e33ff5-6e2b-4bd4-8e41-b4243bf30d7f/05_propaganda.jpg?w=374&h=449" position="4.9 2 18" rotation="0 -90 0" width="2" height="3"></a-image> <!-- Right Wall Poster -->
+        <a-image src="https://i.natgeofe.com/n/34e33ff5-6e2b-4bd4-8e41-b4243bf30d7f/05_propaganda.jpg?w=374&h=449" position="4.9 2 11" rotation="0 -90 0" width="2" height="3"></a-image> <!-- Right Wall Poster -->
+
+        <a-image src="https://upload.wikimedia.org/wikipedia/commons/f/f3/%22Loose_lips_might_sink_ships%22_-_NARA_-_513543.jpg" position="-5 2 20" rotation="0 90 0" width="2" height="3"></a-image> <!-- Left Wall Poster -->
+        <a-image src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Bring_him_home_sooner..._Join_the_WAVES%2C_U.S._Navy_poster%2C_1944.jpg/220px-Bring_him_home_sooner..._Join_the_WAVES%2C_U.S._Navy_poster%2C_1944.jpg" position="-5 2 -20" rotation="0 90 0" width="2" height="3"></a-image><!-- Left Wall Poster -->
+        <a-image src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Ww2_poster_oct0404.jpg/569px-Ww2_poster_oct0404.jpg" position="-5 2 -15" rotation="0 90 0" width="2" height="3"></a-image><!-- Left Wall Poster -->
+        <a-image src="https://upload.wikimedia.org/wikipedia/commons/3/34/Warning_-_American_WWII_propaganda_poster.jpg" position="-5 2 15" rotation="0 90 0" width="2" height="3"></a-image> <!-- Left Wall Poster -->  
+
+        <a-image src="https://upload.wikimedia.org/wikipedia/commons/3/3f/UNCLE_SAM_-_BUY_WAR_BONDS_%28window_card%29.jpg" position="0 2 -5" rotation="0 -45 0" width="2" height="3"></a-image> <!--Middle Poster-->
+        <a-image src="https://upload.wikimedia.org/wikipedia/commons/3/3f/UNCLE_SAM_-_BUY_WAR_BONDS_%28window_card%29.jpg" position="0 2 -15" rotation="0 45 0" width="2" height="3"></a-image> <!--Middle Poster-->
+        <a-image src="https://upload.wikimedia.org/wikipedia/commons/3/3f/UNCLE_SAM_-_BUY_WAR_BONDS_%28window_card%29.jpg" position="0 2 10" rotation="0 45 0" width="2" height="3"></a-image>
+        <a-image src="https://upload.wikimedia.org/wikipedia/commons/3/3f/UNCLE_SAM_-_BUY_WAR_BONDS_%28window_card%29.jpg" position="0 2 15" rotation="0 -45 0" width="2" height="3"></a-image> <!--Middle Poster-->
+        
+>
+
+        <!-- Annotations -->
+        <a-text id="text-poster1" value=" We Can Do It Poster" position="-4.9 1 0" rotation="0 90 0" visible="false" class="clickable"></a-text>
+        <!-- Repeat for other annotations (2 to 10) -->
+
+        <!-- Camera with movement controls -->
+        <a-camera wasd-controls-enabled="true" look-controls-enabled="true" position="0 2 25" >
+            <a-cursor color="yellow" fuse="false"></a-cursor>
+        </a-camera>
+
+    </a-scene>
+
+    <script>
+        AFRAME.registerComponent('clickable', {
+            init: function() {
+                this.el.addEventListener('click', () => {
+                    // Determine if the clicked entity is a poster
+                    if (this.el.classList.contains('poster')) {
+                        let posterId = this.el.id;
+                        let annotationId = 'text-' + posterId;
+                        let annotationEl = document.getElementById(annotationId);
+                        
+                        if (annotationEl) {
+                            let isVisible = annotationEl.getAttribute('visible');
+                            annotationEl.setAttribute('visible', !isVisible);
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
