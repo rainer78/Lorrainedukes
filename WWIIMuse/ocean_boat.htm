@@ -1,45 +1,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Animated Ocean in A-Frame</title>
+    <title>A-Frame Scene with Ocean and Video</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/alvinwan/aframe-low-poly@0.0.5/dist/aframe-low-poly.min.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script>
     <script>
-        AFRAME.registerComponent('wave', {
-            schema: {type: 'number', default: 1},
+        AFRAME.registerComponent('dynamic-ocean', {
             init: function () {
-                this.el.setAttribute('material', 'color', '#1E90FF');
-                this.el.setAttribute('geometry', 'primitive: plane; width: 500; height: 500; segmentsWidth: 20; segmentsHeight: 20');
-                this.el.object3D.rotation.x = -Math.PI / 2; // Rotate the plane to lie flat
+                this.el.setAttribute('geometry', {
+                    primitive: 'plane',
+                    width: 500,
+                    height: 500,
+                    segmentsWidth: 50,
+                    segmentsHeight: 50
+                });
+                this.el.setAttribute('material', {
+                    color: 'blue',
+                    side: 'double'
+                });
+                this.el.object3D.rotation.x = -Math.PI / 2;
             },
-            tick: function (time, timeDelta) {
-                var el = this.el;
-                var data = this.data;
-                var waveHeight = Math.sin(time / 1000 * data) * 10;
-                el.object3D.position.y = waveHeight;
+            tick: function (time) {
+                var vertices = this.el.getObject3D('mesh').geometry.attributes.position.array;
+                for (let i = 0; i < vertices.length; i += 3) {
+                    vertices[i + 2] = Math.sin((vertices[i] + time * 0.0005) * 2 * Math.PI / 50) * 2;
+                }
+                this.el.getObject3D('mesh').geometry.attributes.position.needsUpdate = true;
             }
         });
     </script>
 </head>
 <body>
     <a-scene>
-        <!-- Starry Environment -->
         <a-entity environment="preset: starry; stars: 1000;"></a-entity>
+        <a-entity dynamic-ocean position="0 -20 0"></a-entity>
 
-        <!-- Dynamic Ocean -->
-        <a-entity dynamic-ocean></a-entity>
-
-        <!-- Video Sphere 
-        <a-videosphere src="path_to_your_video.mp4"></a-videosphere> -->
-
-        <!-- Camera with Gaze Controls -->
-        <a-camera>
+        <!-- Standard Video Element -->
+        <a-video src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" width="16" height="9" position="0 5 -20"></a-video>
+        
+        <a-camera position="0 5 10">
             <a-cursor color="#FFF" fuse="true" fuse-timeout="1500"></a-cursor>
         </a-camera>
-
-        <!-- Oculus Touch Controls -->
         <a-entity oculus-touch-controls></a-entity>
-
     </a-scene>
 </body>
 </html>
+
