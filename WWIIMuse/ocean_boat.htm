@@ -3,6 +3,7 @@
 <head>
     <title>Animated Ocean in A-Frame</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/alvinwan/aframe-low-poly@0.0.5/dist/aframe-low-poly.min.js"></script>
     <script>
         AFRAME.registerComponent('wave', {
             schema: {type: 'number', default: 1},
@@ -22,9 +23,23 @@
 </head>
 <body>
     <a-scene>
-        <a-sky color="#87CEEB"></a-sky> <!-- Sky for background -->
-        <a-entity wave="5" position="0 0 -20"></a-entity> <!-- Ocean with wave effect -->
-        <a-camera position="0 15 30" look-controls-enabled="true"></a-camera> <!-- Camera positioned to view the ocean -->
+        <!-- Starry Environment -->
+        <a-entity environment="preset: starry; stars: 1000;"></a-entity>
+
+        <!-- Dynamic Ocean -->
+        <a-entity dynamic-ocean></a-entity>
+
+        <!-- Video Sphere 
+        <a-videosphere src="path_to_your_video.mp4"></a-videosphere> -->
+
+        <!-- Camera with Gaze Controls -->
+        <a-camera>
+            <a-cursor color="#FFF" fuse="true" fuse-timeout="1500"></a-cursor>
+        </a-camera>
+
+        <!-- Oculus Touch Controls -->
+        <a-entity oculus-touch-controls></a-entity>
+
     </a-scene>
 </body>
 </html>
