@@ -1,49 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Animated Blue Ocean in A-Frame</title>
+    <title>Animated Ocean in A-Frame</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script>
-        // Register a custom component for the ocean
-        AFRAME.registerComponent('dynamic-ocean', {
+        AFRAME.registerComponent('wave', {
+            schema: {type: 'number', default: 1},
             init: function () {
-                // Set initial geometry and material
-                this.el.setAttribute('geometry', {
-                    primitive: 'plane', 
-                    width: 500, 
-                    height: 500,
-                    segmentsWidth: 50,
-                    segmentsHeight: 50
-                });
-                this.el.setAttribute('material', {
-                    color: '#0000FF', // base color
-                    side: 'double'
-                });
+                this.el.setAttribute('material', 'color', '#1E90FF');
+                this.el.setAttribute('geometry', 'primitive: plane; width: 500; height: 500; segmentsWidth: 20; segmentsHeight: 20');
+                this.el.object3D.rotation.x = -Math.PI / 2; // Rotate the plane to lie flat
             },
-            tick: function (time) {
-                // Apply a wave effect
-                const vertices = this.el.getObject3D('mesh').geometry.vertices;
-                vertices.forEach(vertex => {
-                    let waveHeight = Math.sin(vertex.x * 0.1 + (time * 0.0005)) * 5;
-                    vertex.z = waveHeight;
-                });
-                this.el.getObject3D('mesh').geometry.verticesNeedUpdate = true;
+            tick: function (time, timeDelta) {
+                var el = this.el;
+                var data = this.data;
+                var waveHeight = Math.sin(time / 1000 * data) * 0.5;
+                el.object3D.position.y = waveHeight;
             }
         });
     </script>
 </head>
 <body>
     <a-scene>
-        <!-- Camera setup to view the ocean -->
-        <a-camera position="0 50 100" look-controls-enabled="true"></a-camera>
-        
-        <!-- Adding the animated ocean -->
-        <a-entity
-        geometry="primitive: plane; width: 500; height: 500;"
-        material="color: blue; shader: flat;"
-        dynamic-ocean rotation="-90 0 0"
-        animation="property: position; to: 0 1 0; dir: alternate; dur: 2000; loop: true; easing: easeInOutSine">
-    </a-entity>
+        <a-sky color="#87CEEB"></a-sky> <!-- Sky for background -->
+        <a-entity wave="5" position="0 0 -20"></a-entity> <!-- Ocean with wave effect -->
+        <a-camera position="0 15 30" look-controls-enabled="true"></a-camera> <!-- Camera positioned to view the ocean -->
     </a-scene>
 </body>
 </html>
