@@ -5,16 +5,16 @@
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script>
         AFRAME.registerComponent('wave', {
-            schema: {type: 'number', default: 100},
+            schema: {type: 'number', default: 1},
             init: function () {
                 this.el.setAttribute('material', 'color', '#1E90FF');
-                this.el.setAttribute('geometry', 'primitive: plane; width: 500; height: 500; segmentsWidth: 20; segmentsHeight: 200');
+                this.el.setAttribute('geometry', 'primitive: plane; width: 500; height: 500; segmentsWidth: 20; segmentsHeight: 20');
                 this.el.object3D.rotation.x = -Math.PI / 2; // Rotate the plane to lie flat
             },
             tick: function (time, timeDelta) {
                 var el = this.el;
                 var data = this.data;
-                var waveHeight = Math.sin(time / 1000 * data) * 0.5;
+                var waveHeight = Math.sin(time / 1000 * data) * 10;
                 el.object3D.position.y = waveHeight;
             }
         });
