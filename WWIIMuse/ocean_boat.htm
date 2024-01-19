@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Animated Blue Ocean in A-Frame</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script>
+        AFRAME.registerComponent('animated-ocean', {
+            init: function () {
+                // Basic properties for the ocean plane
+                this.el.setAttribute('material', { color: 'blue', shader: 'flat' });
+                this.el.setAttribute('geometry', { primitive: 'plane', width: 500, height: 500 });
+
+                // Rotate the plane to be horizontal
+                this.el.object3D.rotation.x = -Math.PI / 2;
+            },
+            tick: function (time, timeDelta) {
+                // Simple animation to create a wave effect
+                var scale = Math.sin(time / 1000) * 0.05 + 1;
+                this.el.object3D.scale.set(scale, 1, scale);
+            }
+        });
+    </script>
+</head>
+<body>
+    <a-scene>
+        <!-- Camera setup to view the ocean -->
+        <a-camera position="0 5 10" look-controls-enabled="true"></a-camera>
+        
+        <!-- Adding the animated ocean -->
+        <a-entity animated-ocean position="0 0 0"></a-entity>
+    </a-scene>
+</body>
+</html>
