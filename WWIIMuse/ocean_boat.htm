@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Enhanced Animated Ocean in A-Frame</title>
+    <title>Animated Blue Ocean in A-Frame</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script>
         // Register a custom component for the ocean
@@ -36,10 +36,14 @@
     <a-scene>
         <!-- Camera setup to view the ocean -->
         <a-camera position="0 50 100" look-controls-enabled="true"></a-camera>
-
-        <!-- Dynamic ocean entity -->
-        <a-entity dynamic-ocean rotation="-90 0 0"></a-entity>
+        
+        <!-- Adding the animated ocean -->
+        <a-entity
+        geometry="primitive: plane; width: 500; height: 500;"
+        material="color: blue; shader: flat;"
+        dynamic-ocean rotation="-90 0 0"
+        animation="property: position; to: 0 1 0; dir: alternate; dur: 2000; loop: true; easing: easeInOutSine">
+    </a-entity>
     </a-scene>
 </body>
 </html>
-
