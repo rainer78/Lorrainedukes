@@ -27,7 +27,12 @@
         <a-camera position="0 5 10" look-controls-enabled="true"></a-camera>
         
         <!-- Adding the animated ocean -->
-        <a-entity animated-ocean position="0 0 0"></a-entity>
+        <a-entity
+        geometry="primitive: plane; width: 500; height: 500;"
+        material="color: blue; shader: flat;"
+        rotation="-90 0 0"
+        animation="property: position; to: 0 1 0; dir: alternate; dur: 2000; loop: true; easing: easeInOutSine">
+    </a-entity>
     </a-scene>
 </body>
 </html>
