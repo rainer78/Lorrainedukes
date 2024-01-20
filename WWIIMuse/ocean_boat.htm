@@ -5,6 +5,7 @@
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/alvinwan/aframe-low-poly@0.0.5/dist/aframe-low-poly.min.js"></script>
+    <script>
         AFRAME.registerComponent('dynamic-ocean', {
             init: function () {
                 this.el.setAttribute('geometry', {
@@ -34,7 +35,7 @@
     <a-scene>
         <a-entity environment="preset: osiris;"></a-entity>
         <a-entity dynamic-ocean position="0 -20 0"></a-entity>
-        <lp-sphere position="0 -20 0"></lp-sphere>
+        <lp-sphere position="0 0 0"></lp-sphere>
 
         <!-- Standard Video Element -->
         <a-video src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" width="16" height="9" position="0 5 -20"></a-video>
