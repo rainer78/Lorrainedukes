@@ -25,9 +25,9 @@
             },
             tick: function (time) {
                 var vertices = this.el.getObject3D('mesh').geometry.attributes.position.array;
-                var waveAmplitude = 5;
+                var waveAmplitude = 3;
                 var waveFrequency = 0.1;
-                var waveSpeed = 0.001;
+                var waveSpeed = 0.0001;
                 for (let i = 0; i < vertices.length; i += 3) {
                     vertices[i + 2] = Math.sin((vertices[i] * waveFrequency + time * waveSpeed) * 2 * Math.PI) * waveAmplitude;
                 }
