@@ -16,19 +16,24 @@
                     segmentsHeight: 50
                 });
                 this.el.setAttribute('material', {
-                    color: 'blue',
+                    color: 'deepskyblue', // Lighter color for water
+                    metalness: 0.5,
+                    roughness: 0.3,
                     side: 'double'
                 });
                 this.el.object3D.rotation.x = -Math.PI / 2;
             },
             tick: function (time) {
                 var vertices = this.el.getObject3D('mesh').geometry.attributes.position.array;
+                var waveAmplitude = 10;
+                var waveFrequency = 0.1;
+                var waveSpeed = 0.001;
                 for (let i = 0; i < vertices.length; i += 3) {
-                    vertices[i + 2] = Math.sin((vertices[i] + time * 0.0005) * 2 * Math.PI / 50) * 2;
+                    vertices[i + 2] = Math.sin((vertices[i] * waveFrequency + time * waveSpeed) * 2 * Math.PI) * waveAmplitude;
                 }
                 this.el.getObject3D('mesh').geometry.attributes.position.needsUpdate = true;
             }
-        });
+        });   
     </script>
 </head>
 <body>
