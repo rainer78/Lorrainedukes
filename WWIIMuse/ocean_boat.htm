@@ -33,12 +33,13 @@
 </head>
 <body>
     <a-scene>
+        <a-entity light="type: directional; color: #FFF; intensity: 1" position="-1 1 0"></a-entity>
         <a-entity environment="preset: osiris;"></a-entity>
-        <a-entity dynamic-ocean position="0 2 0"></a-entity>
-        <lp-sphere position="0 0 0"></lp-sphere>
+        <a-entity dynamic-ocean position="0 3 0"></a-entity>
+      
 
         <!-- Standard Video Element -->
-        <a-video src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" width="16" height="9" position="0 5 -20"></a-video>
+        <a-video src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" width="16" height="9" position="0 5 -14"></a-video>
         
         <a-camera position="0 8 10">
             <a-cursor color="#FFF" fuse="true" fuse-timeout="1500"></a-cursor>
