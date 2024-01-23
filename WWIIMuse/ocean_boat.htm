@@ -9,8 +9,8 @@
   <body>
     <a-scene>
 
-      <!-- Use A-Frame Environment Component with Japan preset -->
-      <a-environment preset="japan"></a-environment>
+      <!-- Use A-Frame Environment Component with preset -->
+      <a-environment preset="preset: starry; stars: 1000"></a-environment>
 
       <!-- Camera -->
       <a-camera></a-camera>
@@ -22,7 +22,12 @@
       <a-entity id="rightHand" hand-tracking-controls="hand: right;"></a-entity>
 
       <!-- Sphere for Interaction -->
-      <a-sphere position="0 1.5 -3" radius="0.2" color="blue"></a-sphere>
+      <a-sphere 
+        id="grabbableSphere"
+        position="0 1.5 -3"
+        radius="0.2"
+        color="blue"
+        grabbable="distance: 0.2;"></a-sphere>
 
       <!-- Rain Effect -->
       <a-entity particle-system="preset: rain; particleCount: 1000; size: 0.05; color: #00F;"></a-entity>
