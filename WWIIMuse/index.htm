@@ -4,24 +4,23 @@
     <title>WWII Propaganda Poster Museum</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script>
+    <script src="https://cdn.rawgit.com/aframevr/aframe/1.2.0/dist/aframe-extras.min.js"></script>
 </head>
 <body>
     <a-scene>
+        <!-- Left Hand -->
+        <a-entity id="leftHand" hand-tracking-controls="hand: left;"></a-entity>
+
+        <!-- Right Hand -->
+        <a-entity id="rightHand" hand-tracking-controls="hand: right;"></a-entity>
+
         <a-entity environment="preset: starry; stars: 1000;"></a-entity>
+
         <!-- Ambient Sound -->
-    <a-sound aria-describedby="Music Genrated By Murbert" src="/WWIIMuse/audio/Background_Gallery_Mubert (Remix) (d5459caa1ba9445ebfe508da5c6b14bb).mp3" autoplay="true" loop="true"></a-sound>
+            <a-sound aria-describedby="Music Genrated By Murbert" src="/WWIIMuse/audio/Background_Gallery_Mubert (Remix) (d5459caa1ba9445ebfe508da5c6b14bb).mp3" autoplay="true" loop="true"></a-sound>
         
-        
-        
-       
-        <!-- Tiled Wooden Floor -->
-        <a-plane position="0 0 0" rotation="-90 0 0" width="10" height="4" material="src: /WWIIMuse/img/woodfloor.png; repeat: 4 4;"></a-plane>
 
         <!-- Walls -->
-        <!-- Front Wall (Transparent)
-        <a-plane id="Wall1" position="0 2 25" rotation="0 0 0" width="10" height="4" material="opacity: 0.8; transparent: true;"></a-plane>  -->
-
-       <!-- Other Walls -->
             <a-plane id="Wall2" position="5 2 0" rotation="0 90 0" width="10" height="10"></a-plane> <!-- Right Wall -->
             <a-plane id="Wall3" position="0 2 -5" rotation="0 180 0" width="10" height="10"></a-plane> <!-- Back Wall -->
             <a-plane id="Wall4" position="-5 2 0" rotation="0 -90 0" width="10" height="10"></a-plane> <!-- Left Wall -->
@@ -63,6 +62,10 @@
         <a-camera wasd-controls-enabled="true" look-controls-enabled="true" position="0 1 0" >
             <a-cursor color="yellow" fuse="false"></a-cursor>
         </a-camera>
+
+        <!-- Optional Hand Model -->
+      <a-entity hand-model="left" hand-controls="hand: left; handModelStyle: lowPoly; color: #555"></a-entity>
+      <a-entity hand-model="right" hand-controls="hand: right; handModelStyle: lowPoly; color: #555"></a-entity>
 
     </a-scene>
 
