@@ -1,104 +1,38 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>A-Frame Scene with Ocean and Video</title>
+  <head>
+    <meta charset="utf-8">
+    <title>A-Frame Hand Tracking Scene with Rain in Japan</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script>
     <script src="https://cdn.rawgit.com/aframevr/aframe/1.2.0/dist/aframe-extras.min.js"></script>
-    <script>
-        // Register the custom shader
-        AFRAME.registerShader('height-based-color', {
-            schema: {
-                time: {type: 'time', is: 'uniform'}
-            },
-
-            vertexShader: `
-                varying vec3 vPos;
-                void main() {
-                    vPos = position;
-                    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-                }
-            `,
-
-            fragmentShader: `
-                uniform float time;
-                varying vec3 vPos;
-
-                void main() {
-                    float height = sin(vPos.x * 0.1 + time * 0.0005) * 2.0;
-                    vec3 color = mix(vec3(0.0, 0.0, 1.0), vec3(0.0, 1.0, 1.0), (height + 2.0) / 4.0);
-                    gl_FragColor = vec4(color, 1.0);
-                }
-            `
-        });
-
-        // Modify the dynamic-ocean component to use the custom shader
-        AFRAME.registerComponent('dynamic-ocean', {
-            schema: {
-                time: {type: 'time', is: 'uniform'}
-            },
-
-            init: function () {
-                this.el.setAttribute('geometry', {
-                    primitive: 'plane',
-                    width: 500,
-                    height: 500,
-                    segmentsWidth: 50,
-                    segmentsHeight: 50
-                });
-                this.el.setAttribute('material', 'shader: height-based-color');
-                this.el.object3D.rotation.x = -Math.PI / 2;
-            },
-
-            tick: function (time) {
-                this.data.time = time;
-                var vertices = this.el.getObject3D('mesh').geometry.attributes.position.array;
-                var waveAmplitude = 2;
-                var waveFrequency = 0.1;
-                var waveSpeed = 0.001;
-                for (let i = 0; i < vertices.length; i += 3) {
-                    vertices[i + 2] = Math.sin((vertices[i] * waveFrequency + time * waveSpeed) * 2 * Math.PI) * waveAmplitude;
-                }
-                this.el.getObject3D('mesh').geometry.attributes.position.needsUpdate = true;
-            }
-        });   
-    </script>
-</head>
-<body>
+  </head>
+  <body>
     <a-scene>
-        <!-- Left Hand -->
+
+      <!-- Use A-Frame Environment Component with Japan preset -->
+      <a-environment preset="japan"></a-environment>
+
+      <!-- Camera -->
+      <a-camera></a-camera>
+
+      <!-- Left Hand -->
       <a-entity id="leftHand" hand-tracking-controls="hand: left;"></a-entity>
 
       <!-- Right Hand -->
       <a-entity id="rightHand" hand-tracking-controls="hand: right;"></a-entity>
 
+      <!-- Sphere for Interaction -->
+      <a-sphere position="0 1.5 -3" radius="0.2" color="blue"></a-sphere>
+
       <!-- Rain Effect -->
       <a-entity particle-system="preset: rain; particleCount: 1000; size: 0.05; color: #00F;"></a-entity>
 
-        <!-- Light Source -->
+      <!-- Light Source -->
       <a-light type="ambient" position="2 4 -3" intensity="0.5"></a-light>
 
-        <a-entity environment="preset: osiris;"></a-entity>
-
-        <a-entity dynamic-ocean position="0 0 0"></a-entity>
-
-
-        <!-- Standard Video Element -->
-
-        <a-video src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" width="16" height="9" position="0 5 -14"></a-video>
-        
-        <a-camera position="0 8 10">
-            <a-cursor color="#FFF" fuse="true" fuse-timeout="1500"></a-cursor>
-            <a-entity oculus-touch-controls></a-entity>
-        </a-camera>
-
-        <!-- Optional Hand Model -->
+      <!-- Optional Hand Model -->
       <a-entity hand-model="left" hand-controls="hand: left; handModelStyle: lowPoly; color: #555"></a-entity>
       <a-entity hand-model="right" hand-controls="hand: right; handModelStyle: lowPoly; color: #555"></a-entity>
-   
-        
     </a-scene>
-</body>
+  </body>
 </html>
-
-
