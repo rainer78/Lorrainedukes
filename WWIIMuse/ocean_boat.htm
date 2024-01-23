@@ -4,6 +4,7 @@
     <title>A-Frame Scene with Ocean and Video</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script>
+    <script src="https://cdn.rawgit.com/aframevr/aframe/1.2.0/dist/aframe-extras.min.js"></script>
     <script>
         // Register the custom shader
         AFRAME.registerShader('height-based-color', {
@@ -65,16 +66,36 @@
 </head>
 <body>
     <a-scene>
-        <a-entity light="type: directional; color: #FFF; intensity: .7" position="-1 1 0"></a-entity>
+        <!-- Left Hand -->
+      <a-entity id="leftHand" hand-tracking-controls="hand: left;"></a-entity>
+
+      <!-- Right Hand -->
+      <a-entity id="rightHand" hand-tracking-controls="hand: right;"></a-entity>
+
+      <!-- Rain Effect -->
+      <a-entity particle-system="preset: rain; particleCount: 1000; size: 0.05; color: #00F;"></a-entity>
+
+        <!-- Light Source -->
+      <a-light type="ambient" position="2 4 -3" intensity="0.5"></a-light>
+
         <a-entity environment="preset: osiris;"></a-entity>
+
         <a-entity dynamic-ocean position="0 0 0"></a-entity>
+
+
         <!-- Standard Video Element -->
+
         <a-video src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" width="16" height="9" position="0 5 -14"></a-video>
         
         <a-camera position="0 8 10">
             <a-cursor color="#FFF" fuse="true" fuse-timeout="1500"></a-cursor>
             <a-entity oculus-touch-controls></a-entity>
         </a-camera>
+
+        <!-- Optional Hand Model -->
+      <a-entity hand-model="left" hand-controls="hand: left; handModelStyle: lowPoly; color: #555"></a-entity>
+      <a-entity hand-model="right" hand-controls="hand: right; handModelStyle: lowPoly; color: #555"></a-entity>
+   
         
     </a-scene>
 </body>
