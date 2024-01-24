@@ -1,43 +1,58 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
-    <title>A-Frame Hand Tracking Scene with Rain in Japan</title>
+    <title>A-Frame Hand Tracking and Gesture Detection</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="https://cdn.rawgit.com/aframevr/aframe/1.2.0/dist/aframe-extras.min.js"></script>
-  </head>
-  <body>
-    <a-scene>
+</head>
+<body>
+    <a-scene webxr="requiredFeatures: hand-tracking">
+        <!-- Hand entities for tracking -->
+        <a-entity id="leftHand" hand-tracking="hand: left"></a-entity>
+        <a-entity id="rightHand" hand-tracking="hand: right"></a-entity>
 
-      <!-- Use A-Frame Environment Component with preset -->
-      <a-environment preset="preset: starry; stars: 1000"></a-environment>
-
-      <!-- Camera -->
-      <a-camera></a-camera>
-
-      <!-- Left Hand -->
-      <a-entity id="leftHand" hand-tracking-controls="hand: left;"></a-entity>
-
-      <!-- Right Hand -->
-      <a-entity id="rightHand" hand-tracking-controls="hand: right;"></a-entity>
-
-      <!-- Sphere for Interaction -->
-      <a-sphere 
-        id="grabbableSphere"
-        position="0 1.5 -3"
-        radius="0.2"
-        color="blue"
-        grabbable="distance: 0.2;"></a-sphere>
-
-      <!-- Rain Effect -->
-      <a-entity particle-system="preset: rain; particleCount: 1000; size: 0.05; color: #00F;"></a-entity>
-
-      <!-- Light Source -->
-      <a-light type="ambient" position="2 4 -3" intensity="0.5"></a-light>
-
-      <!-- Optional Hand Model -->
-      <a-entity hand-model="left" hand-controls="hand: left; handModelStyle: lowPoly; color: #555"></a-entity>
-      <a-entity hand-model="right" hand-controls="hand: right; handModelStyle: lowPoly; color: #555"></a-entity>
+        <!-- Clickable box -->
+        <a-box position="0 1.5 -3" rotation="0 45 0" color="#4CC3D9" clickable></a-box>
+        
+        <!-- Camera -->
+        <a-camera position="0 1.6 0"></a-camera>
     </a-scene>
-  </body>
+
+    <script>
+        // Hand Tracking Component
+        AFRAME.registerComponent('hand-tracking', {
+            schema: { hand: { type: 'string', default: 'left' } },
+
+            tick: function () {
+                const hand = this.el.getObject3D('mesh');
+                if (!hand) return;
+
+                const indexTip = hand.joints['index-finger-tip'];
+                const thumbTip = hand.joints['thumb-tip'];
+
+                if (indexTip && thumbTip) {
+                    const distance = indexTip.position.distanceTo(thumbTip.position);
+                    if (distance < 0.03) { // Threshold for pinch gesture, adjust as needed
+                        this.el.emit('pinchdetected');
+                    }
+                }
+            }
+        });
+
+        // Clickable Component
+        AFRAME.registerComponent('clickable', {
+            init: function () {
+                this.el.addEventListener('pinchdetected', () => {
+                    this.onPinch();
+                });
+            },
+
+            onPinch: function () {
+                // Action to perform on pinch, e.g., change color
+                this.el.setAttribute('color', '#' + Math.floor(Math.random()*16777215).toString(16)); // Change to a random color
+                console.log('Pinch detected on clickable entity');
+            }
+        });
+    </script>
+</body>
 </html>
