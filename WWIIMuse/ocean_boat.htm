@@ -2,57 +2,60 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>A-Frame Hand Tracking and Gesture Detection</title>
+    <title>VR Art Gallery Tour with Hand Tracking</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
 </head>
 <body>
-    <a-scene webxr="requiredFeatures: hand-tracking">
+    <a-scene>
+        <!-- Background Music -->
+        <a-sound src="url_to_your_music_file.mp3" autoplay="true" loop="true" volume="0.5"></a-sound>
+
+        <!-- Gallery Environment -->
+        <a-plane position="0 0 0" rotation="-90 0 0" width="10" height="10" color="#7B7B7B"></a-plane>
+        <a-box position="0 1.5 -5" rotation="0 0 0" width="10" height="3" depth="0.1" color="#FFFFFF"></a-box>
+        <a-box position="5 1.5 0" rotation="0 -90 0" width="10" height="3" depth="0.1" color="#FFFFFF"></a-box>
+        <a-light type="ambient" color="#fff"></a-light>
+        <a-light type="directional" position="-2 4 2" intensity="0.5" target="0 0 0"></a-light>
+
         <!-- Hand entities for tracking -->
         <a-entity id="leftHand" hand-tracking="hand: left"></a-entity>
         <a-entity id="rightHand" hand-tracking="hand: right"></a-entity>
 
-        <!-- Clickable box -->
-        <a-box position="0 1.5 -3" rotation="0 45 0" color="#4CC3D9" clickable></a-box>
-        
-        <!-- Camera -->
-        <a-camera position="0 1.6 0"></a-camera>
-    </a-scene>
+        <!-- Artworks -->
+        <a-image src="https://github.com/rainer78/Lorrainedukes/blob/master/WWIIMuse/img/posters/rosie2.png?raw=true" position="-2 1.5 -4.9" width="2" height="3" class="clickable" data-price="$500"></a-image>
+        <a-image src="https://github.com/rainer78/Lorrainedukes/blob/master/WWIIMuse/img/posters/rosie2.png?raw=true" position="0 1.5 -4.9" width="2" height="3" class="clickable" data-price="$600"></a-image>
+        <a-image src="https://github.com/rainer78/Lorrainedukes/blob/master/WWIIMuse/img/posters/rosie2.png?raw=true" position="2 1.5 -4.9" width="2" height="3" class="clickable" data-price="$700"></a-image>
 
-    <script>
-        // Hand Tracking Component
-        AFRAME.registerComponent('hand-tracking', {
-            schema: { hand: { type: 'string', default: 'left' } },
+        <!-- Hand Tracking and Clickable Components Script -->
+        <script>
+            AFRAME.registerComponent('hand-tracking', {
+                schema: { hand: { type: 'string', default: 'left' } },
+                tick: function () {
+                    const hand = this.el.getObject3D('mesh');
+                    if (!hand) return;
 
-            tick: function () {
-                const hand = this.el.getObject3D('mesh');
-                if (!hand) return;
+                    const indexTip = hand.joints['index-finger-tip'];
+                    const thumbTip = hand.joints['thumb-tip'];
 
-                const indexTip = hand.joints['index-finger-tip'];
-                const thumbTip = hand.joints['thumb-tip'];
-
-                if (indexTip && thumbTip) {
-                    const distance = indexTip.position.distanceTo(thumbTip.position);
-                    if (distance < 0.03) { // Threshold for pinch gesture, adjust as needed
-                        this.el.emit('pinchdetected');
+                    if (indexTip && thumbTip) {
+                        const distance = indexTip.position.distanceTo(thumbTip.position);
+                        if (distance < 0.03) { // Threshold for pinch gesture, adjust as needed
+                            this.el.emit('pinchdetected');
+                        }
                     }
                 }
-            }
-        });
+            });
 
-        // Clickable Component
-        AFRAME.registerComponent('clickable', {
-            init: function () {
-                this.el.addEventListener('pinchdetected', () => {
-                    this.onPinch();
-                });
-            },
-
-            onPinch: function () {
-                // Action to perform on pinch, e.g., change color
-                this.el.setAttribute('color', '#' + Math.floor(Math.random()*16777215).toString(16)); // Change to a random color
-                console.log('Pinch detected on clickable entity');
-            }
-        });
-    </script>
+            AFRAME.registerComponent('clickable', {
+                init: function () {
+                    this.el.addEventListener('pinchdetected', () => {
+                        // Placeholder action for pinch
+                        alert('Pinch detected: This could be used to show artwork details or link to a purchase page.');
+                    });
+                }
+            });
+        </script>
+    </a-scene>
 </body>
 </html>
+
